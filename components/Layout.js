@@ -1,14 +1,18 @@
+import NavBar from "./header/NavBar";
+import Footer from "./footer/Footer";
 export default function Layout({ children }) {
   return (
     <>
       <div>
-        <h1>Header Section</h1>
-      </div>
+        <div>
+          <NavBar />
+        </div>
 
-      <div>{children}</div>
+        <div>{children}</div>
 
-      <div>
-        <h1>Footer section</h1>
+        <div>
+          <Footer />
+        </div>
       </div>
     </>
   );

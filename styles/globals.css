@@ -1,3 +1,21 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
+
+.header_container {
+  display: flex;
+  justify-content: space-between;
+  background: #437ed6;
+  padding: 20px;
+}
+
+.footer_Container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  border: 2px solid #1111;
+  padding: 30px;
+  height: 100px;
+}
