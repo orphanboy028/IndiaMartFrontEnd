@@ -4,6 +4,7 @@ import { singUpAdminAccount } from "../../actions/authActions";
 
 export default function SingUp() {
   const [loading, setLoading] = useState(false);
+  const [susessMsg, setSusessMsg] = useState("");
 
   const {
     register,
@@ -24,8 +25,12 @@ export default function SingUp() {
 
       setLoading(false);
       console.log(data);
+      // console.log(data.data.message);
+      setSusessMsg(data.data.message);
     } catch (error) {
-      console.log(error.response);
+      console.log(error);
+
+      // setSusessMsg(error.response.message);
       setLoading(false);
     }
   };
@@ -131,6 +136,7 @@ export default function SingUp() {
   return (
     <>
       <div className="container mt-5">
+        {susessMsg ? <h1> {susessMsg} </h1> : " "}
         {loading ? <h1>loading......</h1> : <h1>Resistration</h1>}
         {RegisterForm()}
       </div>
