@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { logInAdminAccount, authenticate } from "../../actions/authActions";
+import {
+  logInAdminAccount,
+  authenticate,
+  isAuth,
+} from "../../actions/authActions";
 import { useRouter } from "next/router";
 
 export default function Login() {
@@ -28,7 +32,11 @@ export default function Login() {
         // 1) save user token to cookies
         // 2) save Tooken in Localstorage
         authenticate(data, () => {
-          router.push("/");
+          if (isAuth().role === "admin") {
+            router.push("/admin");
+          } else if (isAuth().role === "user") {
+            router.push("/user");
+          }
         });
         // 3 authinticate user
 
@@ -89,6 +97,11 @@ export default function Login() {
       </form>
     );
   };
+
+  // Re-direct user if they o=authanticated
+  useEffect(() => {
+    isAuth() && router.push("/");
+  }, []);
 
   return (
     <>

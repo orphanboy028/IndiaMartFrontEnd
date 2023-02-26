@@ -35,6 +35,24 @@ export default function NavBar() {
           {isAuth() && (
             <>
               <div>{isAuth().fullName}</div>
+              {isAuth() && isAuth().role === "admin" && (
+                <div
+                  style={{ cursor: "pointer" }}
+                  onClick={() => router.push("/admin")}
+                >
+                  Admin DashBoard
+                </div>
+              )}
+
+              {isAuth() && isAuth().role === "user" && (
+                <div
+                  style={{ cursor: "pointer" }}
+                  onClick={() => router.push("/user")}
+                >
+                  User DashBoard
+                </div>
+              )}
+
               <div
                 style={{ cursor: "pointer" }}
                 onClick={() =>

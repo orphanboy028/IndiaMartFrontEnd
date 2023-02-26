@@ -32,7 +32,7 @@ export const logOut = (next) => {
   removeCookies("token");
   localStorage.removeItem("user");
 
-  // next();
+  next();
 };
 
 // set Cookies
@@ -61,6 +61,7 @@ export const setLocalStorage = (key, value) => {
 export const authenticate = (data, cb) => {
   const { token } = data.data;
   const { user } = data.data;
+  console.log(token, user);
 
   setLocalStorage("user", user);
   setCookies("token", token);

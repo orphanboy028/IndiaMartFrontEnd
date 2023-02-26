@@ -10,7 +10,7 @@
 }
 
 .menu_box {
-  width: 20%;
+  width: 50%;
   display: flex;
   justify-content: space-between;
 }

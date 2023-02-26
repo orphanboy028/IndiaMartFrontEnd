@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { singUpAdminAccount } from "../../actions/authActions";
+import { singUpAdminAccount, isAuth } from "../../actions/authActions";
+import { useRouter } from "next/router";
 
 export default function SingUp() {
   const [loading, setLoading] = useState(false);
   const [susessMsg, setSusessMsg] = useState("");
-
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -132,6 +133,11 @@ export default function SingUp() {
       </form>
     );
   };
+
+  // Re-direct user if they o=authanticated
+  useEffect(() => {
+    isAuth() && router.push("/");
+  }, []);
 
   return (
     <>
