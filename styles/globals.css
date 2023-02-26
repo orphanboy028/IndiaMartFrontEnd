@@ -9,6 +9,12 @@
   padding: 20px;
 }
 
+.menu_box {
+  width: 20%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .footer_Container {
   display: flex;
   width: 100%;

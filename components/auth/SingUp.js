@@ -26,7 +26,7 @@ export default function SingUp() {
       setLoading(false);
       console.log(data);
       // console.log(data.data.message);
-      setSusessMsg(data.data.message);
+      // setSusessMsg(data.data.message);
     } catch (error) {
       console.log(error);
 

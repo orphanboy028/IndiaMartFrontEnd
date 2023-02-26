@@ -1,9 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { logInAdminAccount } from "../../actions/authActions";
+import { logInAdminAccount, authenticate } from "../../actions/authActions";
+import { useRouter } from "next/router";
 
 export default function Login() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [susessMsg, setSusessMsg] = useState("");
   const {
@@ -15,13 +17,24 @@ export default function Login() {
     mode: "all",
   });
 
+  //
+
   const formSubmition = async (value) => {
     try {
       setLoading(true);
       const data = await logInAdminAccount(value);
-      console.log(data);
-      setSusessMsg(data.data.message);
       setLoading(false);
+      if ((data.status = "Success")) {
+        // 1) save user token to cookies
+        // 2) save Tooken in Localstorage
+        authenticate(data, () => {
+          router.push("/");
+        });
+        // 3 authinticate user
+
+        setSusessMsg(data.data.message);
+        setLoading(false);
+      }
     } catch (error) {
       console.log(error);
     }
