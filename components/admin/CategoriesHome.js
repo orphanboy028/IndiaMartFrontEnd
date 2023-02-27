@@ -1,8 +1,13 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { createMainCategroies, getCategeoies } from "../../actions/categories";
+import { isAuth, getCookies } from "../../actions/authActions";
 
 export default function CategoriesHome() {
+  const [categiesList, setcategiesList] = useState([]);
+  const [newCategroies, setnewCategroies] = useState([]);
+
   const {
     register,
     handleSubmit,
@@ -11,8 +16,33 @@ export default function CategoriesHome() {
     mode: "all",
   });
 
-  const formSubmition = () => {};
+  const token = getCookies("token");
 
+  const formSubmition = async (inputVal) => {
+    console.log(inputVal);
+    try {
+      const data = await createMainCategroies(inputVal, token);
+      console.log(data);
+      const { categoryName } = data.data.newCategory;
+      setnewCategroies(categoryName);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    getAllCategoies();
+  }, [newCategroies]);
+
+  const getAllCategoies = async () => {
+    try {
+      const res = await getCategeoies();
+      const { allCategories } = res.data;
+      setcategiesList(allCategories);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(categiesList);
   const categoryForm = () => {
     return (
       <>
@@ -25,8 +55,8 @@ export default function CategoriesHome() {
               id="categoryName"
               name="categoryName"
               aria-describedby="cateHelp"
-              placeholder="Enter your E-mail"
-              {...register("cateHelp", {
+              placeholder="Enter your Categres"
+              {...register("categoryName", {
                 required: "Categorey is required",
               })}
             />
@@ -43,10 +73,38 @@ export default function CategoriesHome() {
     );
   };
 
+  const renderCategroiesLst = () => {
+    return (
+      <>
+        {categiesList.map((el) => {
+          return (
+            <>
+              <div
+                className="mt-5 categroies_container"
+                id={el._id}
+                key={el._id}
+              >
+                <div className="cateBox">S.No</div>
+                <div className="cateBox">{el.categoryName}</div>
+                <div className="cateBox">Go To Categroies</div>
+              </div>
+            </>
+          );
+        })}
+      </>
+    );
+  };
+
   return (
     <>
       <div className="container mt-5">
         <div>{categoryForm()}</div>
+        <div className="mt-5 categroies_container">
+          <div className="cateBox">S.No</div>
+          <div className="cateBox">Categoies Name</div>
+          <div className="cateBox">Go To Categroies</div>
+        </div>
+        {renderCategroiesLst()}
       </div>
     </>
   );

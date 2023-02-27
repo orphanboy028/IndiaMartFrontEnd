@@ -25,3 +25,11 @@
   padding: 30px;
   height: 100px;
 }
+
+.categroies_container {
+  display: flex;
+}
+
+.cateBox {
+  width: 25%;
+}
