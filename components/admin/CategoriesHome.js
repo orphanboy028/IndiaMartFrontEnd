@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { createMainCategroies, getCategeoies } from "../../actions/categories";
 import { isAuth, getCookies } from "../../actions/authActions";
+import Link from "next/link";
 
 export default function CategoriesHome() {
   const [categiesList, setcategiesList] = useState([]);
@@ -43,6 +44,7 @@ export default function CategoriesHome() {
   };
 
   console.log(categiesList);
+
   const categoryForm = () => {
     return (
       <>
@@ -76,19 +78,20 @@ export default function CategoriesHome() {
   const renderCategroiesLst = () => {
     return (
       <>
-        {categiesList.map((el) => {
+        {categiesList.map((el, i) => {
           return (
-            <>
-              <div
-                className="mt-5 categroies_container"
-                id={el._id}
-                key={el._id}
-              >
+            <div key={i}>
+              <div className="mt-5 categroies_container" id={el._id}>
                 <div className="cateBox">S.No</div>
                 <div className="cateBox">{el.categoryName}</div>
-                <div className="cateBox">Go To Categroies</div>
+                <div className="cateBox">
+                  {" "}
+                  <Link href={`category/subCategory/${el.slug}`}>
+                    Go To Categroies{" "}
+                  </Link>
+                </div>
               </div>
-            </>
+            </div>
           );
         })}
       </>
